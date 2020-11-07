@@ -43,7 +43,7 @@ function App() {
             }}
           >
             <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['homepage']}>
+            <Menu theme="dark" mode="inline">
               <Menu.Item key="homepage" icon={<HomeOutlined />}><Link to="/">Home</Link></Menu.Item>
               <Menu.Item key="products" icon={<SketchOutlined />}><Link to="/ice-creams">Ice creams</Link></Menu.Item>
               <Menu.Item key="shops" icon={<ShopOutlined />}><Link to="/shops">Shops</Link></Menu.Item>
@@ -61,7 +61,7 @@ function App() {
                 <Shops />
               </Route>
               <Route path="/">
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{ margin: '0 16px' }}>
                   <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                     <Carousel afterChange={onChange}>
                       <div>
