@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Popup from "./Popup";
+import Popup from 'reactjs-popup';
+import "../index.css";
+import DetailProduct from "./DetailProduct.js"
 import {
   Breadcrumb,
   Layout,
@@ -37,6 +39,23 @@ export default function Products() {
     fetchData();
   }, []);
 
+  const openPopup = id => {
+    axios(api + "/" + id).then(({ data }) => {
+      let result = data;
+
+      console.log(result);
+
+      setData(prevState => {
+        return { ...prevState, selected: result }
+      });
+    });
+  }
+
+  const closePopup = () => {
+    setData(prevState => {
+      return { ...prevState, selected: {} }
+    });
+  }
   const onSearch = (value) => {
     setSearchValue(value)
   }
@@ -50,7 +69,9 @@ export default function Products() {
     let products = [];
     if (searchValue !== "") {
       products = data.filter(product => {
-        if (product.name.toLowerCase().includes(searchValue.toLowerCase()))
+        if (product.name.toLowerCase().includes(searchValue.toLowerCase())
+            || product.color.toLowerCase().includes(searchValue.toLowerCase())
+            || product.taste.toLowerCase().includes(searchValue.toLowerCase()))
           return product;
         else return null;
       });
@@ -65,7 +86,9 @@ export default function Products() {
           renderItem={(product) => (
             <List.Item>
               <Card
-                extra={<button>More</button>}
+                extra={<Popup trigger={<button> Trigger</button>} position="center center">
+                {close => <DetailProduct close={close} />}              
+              </Popup>}
                 style={{ width: 350 }}
                 cover={
                   <img

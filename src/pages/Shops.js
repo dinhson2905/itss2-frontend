@@ -49,7 +49,7 @@ export default function Shops() {
     let shops = [];
     if (searchValue !== "") {
       shops = data.filter(shop => {
-        if (shop.name.toLowerCase().includes(searchValue.toLowerCase()))
+        if (shop.local.toLowerCase().includes(searchValue.toLowerCase()))
           return shop;
         else return null;
       });
