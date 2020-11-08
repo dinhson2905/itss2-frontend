@@ -10,7 +10,8 @@ import './App.css';
 import Shops from './pages/Shops.js';
 import IceCreams from './pages/IceCreams.js';
 import { Layout, Menu, Typography, Carousel } from 'antd';
-import { ShopOutlined, HomeOutlined, SketchOutlined} from '@ant-design/icons';
+import { ShopOutlined, HomeOutlined, SketchOutlined,MailOutlined} from '@ant-design/icons';
+import Feedback from "./pages/Feedback";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -47,6 +48,8 @@ function App() {
               <Menu.Item key="homepage" icon={<HomeOutlined />}><Link to="/">Home</Link></Menu.Item>
               <Menu.Item key="products" icon={<SketchOutlined />}><Link to="/ice-creams">Ice creams</Link></Menu.Item>
               <Menu.Item key="shops" icon={<ShopOutlined />}><Link to="/shops">Shops</Link></Menu.Item>
+              <Menu.Item key="feedback" icon={<MailOutlined />}><Link to="/feedback">Feedback</Link></Menu.Item>
+
             </Menu>
           </Sider>
           <Layout>
@@ -59,6 +62,9 @@ function App() {
               </Route>
               <Route path="/shops">
                 <Shops />
+              </Route>
+              <Route path="/feedback">
+                <Feedback />
               </Route>
               <Route path="/">
                 <Content style={{ margin: '0 16px' }}>
