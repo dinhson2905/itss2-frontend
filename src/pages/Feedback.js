@@ -13,23 +13,50 @@ export default class Feedback extends React.Component {
   }
   render() {
   return (
-    <div className="App">
-      <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="message">Message</label>
-          <textarea className="form-control" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+    <div className="app">
+    <form className="form" onSubmit={this.handleSubmit.bind(this)} method="POST">
+      <h1>Contact Us 🤳</h1>
+
+      <label>Name</label>
+      <input placeholder="Name" value={this.state.name} onChange={this.onNameChange.bind(this)}/>
+
+      <label>Email</label>
+      <input
+        placeholder="Email"
+        value={this.state.email}
+        onChange={this.onEmailChange.bind(this)}
+      />
+
+      <label>Message</label>
+      <textarea
+        placeholder="Message"
+        value={this.state.message}
+        onChange={this.onMessageChange.bind(this)}
+      ></textarea>
+
+      <button
+        type="submit"      >
+        Submit
+      </button>
+    </form>
     </div>
+    // <div className="App">
+    //   <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
+    //     <div className="form-group">
+    //       <label htmlFor="name">Name</label>
+    //       <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
+    //     </div>
+    //     <div className="form-group">
+    //       <label htmlFor="exampleInputEmail1">Email address</label>
+    //       <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
+    //     </div>
+    //     <div className="form-group">
+    //       <label htmlFor="message">Message</label>
+    //       <textarea className="form-control" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
+    //     </div>
+    //     <button type="submit" className="btn btn-primary">Submit</button>
+    //   </form>
+    // </div>
   );
   }
   onNameChange(event) {
