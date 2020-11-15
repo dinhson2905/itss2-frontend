@@ -1,45 +1,54 @@
-import React from "react";
+import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import { Row, Col } from 'antd';
+import { Button, Descriptions } from 'antd';
 
-export default ({ close }) => (
-  <div className="modal">
-    <a className="close" onClick={close}>
-      &times;
-    </a>
-    <div className="content">
-    <section className="popup">
-           <div className="content">
-            <h2>kem1</h2>
-               <div className="plot">
-                   <img src="https://www.saveur.com/resizer/sq-17z6mrjFQ0T0mDm-_OBNaEWU=/760x950/arc-anglerfish-arc2-prod-bonnier.s3.amazonaws.com/public/6U5RCBTPHKMZNVG5L3FKKSCIOU.jpg" /> 
-                   
-                   
-              </div> 
-              <p><strong>Taste: Orange</strong></p>   
-              <p><strong>Color: Yellow</strong></p>
-              <a className="close" onClick={close}>
-                &times;
-               </a>
+function DetailProduct(props){
+  const id= props.match.params.id
+  const [Product, setProduct]=useState([])
+  useEffect(()=>{
+    Axios.get(`http://localhost:5000/products/${id}`)
+    .then(response=>{
+        setProduct(response.data[0])
+    })
+  },)
+  return (
+    <div className="postPage" style={{ width: '100%', padding: '3rem 4rem' }}>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <h1>{Product.name}</h1>
             </div>
-        </section>
-    </div>
-  </div>
-);
-// import { SelectOutlined } from '@ant-design/icons';
-// import React from 'react';
 
-// function Popup({ selected, closePopup}){
-//     return (
-//         <section className="popup">
-//             <div className="content">
-//                 <h2>{selected.name} <span>({selected.Taste})</span></h2>
-//                 <p className="name"></p>
-//                 <div className="plot">
-//                     <img src={selected.image} /> 
-//                 </div>
-//                 <button className="close"></button>
-//             </div>
-//         </section>
-//     )
-// }
+            <br />
 
-// export default Popup
+            <Row gutter={[16, 16]} >
+                <Col lg={12} xs={24}>
+                    <img>{Product.image}</img>
+                </Col>
+                <Col lg={12} xs={24}>
+                <div>
+            <Descriptions title="Product Info">
+                <Descriptions.Item label="Name"> {Product.name}</Descriptions.Item>
+                <Descriptions.Item label="Taste">{Product.taste}</Descriptions.Item>
+                <Descriptions.Item label="Color"> {Product.color}</Descriptions.Item>
+                {/* <Descriptions.Item label="Description"> {Product.description}</Descriptions.Item> */}
+            </Descriptions>
+
+            <br />
+            <br />
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="medium" shape="round" type="danger"
+                    // onClick={addToCarthandler}
+                >
+                    Comeback
+                    </Button>
+            </div>
+        </div>
+                </Col>
+            </Row>
+        </div>
+  )
+}
+
+export default DetailProduct

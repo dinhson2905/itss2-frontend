@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Popup from 'reactjs-popup';
 import "../index.css";
-import DetailProduct from "./DetailProduct.js"
 import {
   Breadcrumb,
   Layout,
@@ -14,6 +12,7 @@ import {
 import {
   SearchOutlined,
 } from "@ant-design/icons";
+import DetailProduct from "./DetailProduct";
 
 const { Content } = Layout;
 const { Meta } = Card;
@@ -39,23 +38,7 @@ export default function Products() {
     fetchData();
   }, []);
 
-  const openPopup = id => {
-    axios(api + "/" + id).then(({ data }) => {
-      let result = data;
 
-      console.log(result);
-
-      setData(prevState => {
-        return { ...prevState, selected: result }
-      });
-    });
-  }
-
-  const closePopup = () => {
-    setData(prevState => {
-      return { ...prevState, selected: {} }
-    });
-  }
   const onSearch = (value) => {
     setSearchValue(value)
   }
@@ -86,16 +69,16 @@ export default function Products() {
           renderItem={(product) => (
             <List.Item>
               <Card
-                extra={<Popup trigger={<button> Trigger</button>} position="center center">
-                {close => <DetailProduct close={close} />}              
-              </Popup>}
                 style={{ width: 350 }}
                 cover={
+                  
+                  <a href={`/ice-creams/${product.id}`}>
                   <img
                     style={{ height: "250px" }}
                     alt="example"
                     src={product.image}
                   />
+                  </a>
                 }
               >
                 <Meta

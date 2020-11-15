@@ -12,6 +12,7 @@ import IceCreams from './pages/IceCreams.js';
 import { Layout, Menu, Typography, Carousel } from 'antd';
 import { ShopOutlined, HomeOutlined, SketchOutlined,MailOutlined} from '@ant-design/icons';
 import Feedback from "./pages/Feedback";
+import DetailProduct from "./pages/DetailProduct";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -59,6 +60,9 @@ function App() {
             <Switch>
               <Route path="/ice-creams">
                 <IceCreams />
+              </Route>
+              <Route exact path="/ice-creams/:id">
+                <DetailProduct />
               </Route>
               <Route path="/shops">
                 <Shops />
