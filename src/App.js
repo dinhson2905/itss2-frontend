@@ -10,24 +10,14 @@ import './App.css';
 import Shops from './pages/Shops.js';
 import IceCreams from './pages/IceCreams.js';
 import { Layout, Menu, Typography, Carousel } from 'antd';
-import { ShopOutlined, HomeOutlined, SketchOutlined,MailOutlined} from '@ant-design/icons';
+import { ShopOutlined, SketchOutlined,MailOutlined} from '@ant-design/icons';
 import Feedback from "./pages/Feedback";
 import DetailProduct from "./pages/DetailProduct";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Footer, Sider } = Layout;
 const { Title } = Typography;
 
-function onChange(a, b, c) {
-  console.log(a, b, c);
-}
 
-const contentStyle = {
-  maxHeight: '500px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
 
 function App() {
   return (
@@ -46,7 +36,6 @@ function App() {
           >
             <div className="logo" />
             <Menu theme="dark" mode="inline">
-              <Menu.Item key="homepage" icon={<HomeOutlined />}><Link to="/">Home</Link></Menu.Item>
               <Menu.Item key="products" icon={<SketchOutlined />}><Link to="/ice-creams">Ice creams</Link></Menu.Item>
               <Menu.Item key="shops" icon={<ShopOutlined />}><Link to="/shops">Shops</Link></Menu.Item>
               <Menu.Item key="feedback" icon={<MailOutlined />}><Link to="/feedback">Feedback</Link></Menu.Item>
@@ -61,8 +50,8 @@ function App() {
               <Route path="/ice-creams">
                 <IceCreams />
               </Route>
-              <Route exact path="/ice-creams/:id">
-                <DetailProduct />
+              <Route exact path="/ice-cream/:id" render={(props) => <DetailProduct{...props} />}>
+                {/*<DetailProduct />*/}
               </Route>
               <Route path="/shops">
                 <Shops />
@@ -71,24 +60,7 @@ function App() {
                 <Feedback />
               </Route>
               <Route path="/">
-                <Content style={{ margin: '0 16px' }}>
-                  <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                    <Carousel afterChange={onChange}>
-                      <div>
-                        <h3 style={contentStyle}>1</h3>
-                      </div>
-                      <div>
-                        <h3 style={contentStyle}>2</h3>
-                      </div>
-                      <div>
-                        <h3 style={contentStyle}>3</h3>
-                      </div>
-                      <div>
-                        <h3 style={contentStyle}>4</h3>
-                      </div>
-                    </Carousel>
-                  </div>
-                </Content>
+                <IceCreams />
               </Route>
             </Switch>
             <Footer style={{ textAlign: 'center' }}>IceCreams App ©2020 Design by DHCBS team</Footer>

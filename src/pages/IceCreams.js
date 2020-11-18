@@ -12,7 +12,6 @@ import {
 import {
   SearchOutlined,
 } from "@ant-design/icons";
-import DetailProduct from "./DetailProduct";
 
 const { Content } = Layout;
 const { Meta } = Card;
@@ -71,8 +70,7 @@ export default function Products() {
               <Card
                 style={{ width: 350 }}
                 cover={
-                  
-                  <a href={`/ice-creams/${product.id}`}>
+                  <a href={`/ice-cream/${product.id}`}>
                   <img
                     style={{ height: "250px" }}
                     alt="example"
@@ -99,7 +97,7 @@ export default function Products() {
             </List.Item>
           )}
         />
-        <Pagination total={50} defaultPageSize={9} onChange={handleChange} />
+        <Pagination total={18} defaultPageSize={9} onChange={handleChange} />
       </div>
     );
   };
