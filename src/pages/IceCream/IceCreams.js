@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../index.css";
+import "../../index.css";
 import {
-  Breadcrumb,
   Layout,
   Card,
   Input,
   List,
   Pagination,
+    Row,Col
 } from "antd";
 import {
   SearchOutlined,
@@ -19,8 +19,6 @@ const { Search } = Input;
 const suffix = <SearchOutlined style={{ fontSize: 16, color: "#1890ff" }} />;
 
 export default function Products() {
-
-
   const itemNumberOnePage = 9;
   const [data, setData] = useState([]);
   const [minValue, setMinValue] = useState(0);
@@ -103,11 +101,8 @@ export default function Products() {
   };
 
   return (
-    <Layout style={{ margin: "0 16px" }}>
-      <Breadcrumb style={{ margin: "16px 0" }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Ice Cream</Breadcrumb.Item>
-      </Breadcrumb>
+    <Layout style={{ margin: "0 0px" }}>
+        <h1 className='products'>My Products</h1>
       <Content
         class="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}

@@ -111,23 +111,25 @@ textarea:focus {
   font-size: 3rem;
 }
 
-/*.services {*/
-/*  background-image: url('public/images/img-2.jpg');*/
-/*  background-position: center;*/
-/*  background-size: cover;*/
-/*  background-repeat: no-repeat;*/
-/*  color: #fff;*/
-/*  font-size: 100px;*/
-/*}*/
+.shops {
+  background-image: url('https://jenniferwritespoems.com/wp-content/uploads/2018/04/kaboompics_Rocambolesc-Ice-Cream-Shop-in-Barcelona-Spain-2.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #445565;
+  font-size: 100px;
+  width: 100%;
+}
 
-/*.products {*/
-/*  background-image: url('public/images/img-1.jpg');*/
-/*  background-position: center;*/
-/*  background-size: fill;*/
-/*  background-repeat: no-repeat;*/
-/*  color: #fff;*/
-/*  font-size: 100px;*/
-/*}*/
+.products {
+  background-image: url('https://gravyanalytics.com/wp-content/uploads/2018/06/National_Ice_Cream_Day-1024x576.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #242424;
+  font-size: 100px;
+  width: 100%;
+}
 
 /*.sign-up {*/
 /*  background-image: url('public/images/img-8.jpg');*/

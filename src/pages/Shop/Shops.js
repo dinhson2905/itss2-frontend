@@ -1,18 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {
-    Breadcrumb,
-    Layout,
-    Card,
-    Input,
-    List,
-    Pagination,
-} from "antd";
-import {
-    PhoneFilled,
-    EnvironmentTwoTone,
-    SearchOutlined,
-} from "@ant-design/icons";
+import {Layout,Card, Input, List, Pagination,Row, Col} from "antd";
+import {PhoneFilled, EnvironmentTwoTone, SearchOutlined} from "@ant-design/icons";
+import CheckBox from './Section/Checkbox';
+import { locations } from './Section/Data';
 
 const {Content} = Layout;
 const {Meta} = Card;
@@ -25,7 +16,9 @@ export default function Shops() {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(itemNumberOnePage);
     const [searchValue, setSearchValue] = useState("");
-
+    const [Filters, setFilters] = useState({
+        locations: [],
+    })
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios("https://itss-api.herokuapp.com/shops");
@@ -122,29 +115,63 @@ export default function Shops() {
             </div>
         );
     };
-
+    const handleFilters = (filters, category) => {
+        const newFilters = { ...Filters }
+        newFilters[category] = filters
+        console.log(newFilters)
+        setFilters(newFilters)
+    }
     return (
-        <Layout style={{margin: "0 16px"}}>
-            <Breadcrumb style={{margin: "16px 0"}}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>Shops</Breadcrumb.Item>
-            </Breadcrumb>
-            <Content
-                class="site-layout-background"
-                style={{padding: 24, minHeight: 360}}
-            >
-                <div style={{display: "flex", marginBottom: "20px"}}>
-                    <Search
-                        placeholder="input search text"
-                        enterButton="Search"
-                        size="large"
-                        suffix={suffix}
-                        onSearch={onSearch}
-                        style={{width: "40%"}}
-                    ></Search>
+        <Layout style={{margin: "0 0px"}}>
+            <h1 className='shops'>Let's try all location</h1>
+                <div style={{ width: '80%', margin: '0rem auto' }}>
+                    <Row gutter={[16, 16]}>
+                        <Col lg={12} xs={24} >
+                            <CheckBox
+                                list={locations}
+                                handleFilters={filters => handleFilters(filters, "locations")}
+                            />
+                        </Col>
+                        <Col lg={12} xs={24}>
+                            <Search
+                                placeholder="input search text"
+                                enterButton="Search"
+                                size="large"
+                                suffix={suffix}
+                                onSearch={onSearch}
+                            ></Search>
+                        </Col>
+                    </Row>
+                    {data.length === 0 ?
+                        <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
+                            <h2>No post yet...</h2>
+                        </div> :
+                        <div>
+                            <Row gutter={[16, 16]}>
+                                {renderShops(data)}
+                            </Row>
+                        </div>
+                    }
                 </div>
-                <div>{renderShops(data)}</div>
-            </Content>
         </Layout>
+        // <Layout style={{margin: "0 0px"}}>
+        //
+        //     <Content
+        //         class="site-layout-background"
+        //         style={{padding: 24, minHeight: 360}}
+        //     >
+        //         <div style={{display: "flex", marginBottom: "20px"}}>
+        //             <Search
+        //                 placeholder="input search text"
+        //                 enterButton="Search"
+        //                 size="large"
+        //                 suffix={suffix}
+        //                 onSearch={onSearch}
+        //                 style={{width: "40%"}}
+        //             ></Search>
+        //         </div>
+        //         <div>{renderShops(data)}</div>
+        //     </Content>
+        // </Layout>
     );
 }
