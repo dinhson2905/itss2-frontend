@@ -11,7 +11,7 @@ function DetailProduct(props) {
     const id = props.match.params.id
     const [Product, setProduct] = useState([])
     useEffect(() => {
-        Axios.get(`http://localhost:5000/products/${id}`)
+        Axios.get(`https://itss-api.herokuapp.com/products/${id}`)
             .then(response => {
                 setProduct(response.data)
             })
