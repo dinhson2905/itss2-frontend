@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {Layout,Card, Input, List, Pagination,Row, Col} from "antd";
+import {Layout, Card, Input, List, Pagination, Row, Col} from "antd";
 import {PhoneFilled, EnvironmentTwoTone, SearchOutlined} from "@ant-design/icons";
-import CheckBox from './Section/Checkbox';
-import { locations } from './Section/Data';
+import Checkbox from './Section/Checkbox';
+// import RadioBox from "./Section/Radiobox";
+import {locations} from './Section/Data';
 
 const {Content} = Layout;
 const {Meta} = Card;
@@ -42,13 +43,24 @@ export default function Shops() {
         let shops = [];
         if (searchValue !== "") {
             shops = data.filter(shop => {
-                if (shop.local.toLowerCase().includes(searchValue.toLowerCase())
-                    || shop.name.toLowerCase().includes(searchValue.toLowerCase()))
+                if (shop.local.toLowerCase().includes(searchValue.toLowerCase()))
                     return shop;
                 else return null;
             });
         } else shops = data;
-
+        // console.log(Filters.locations.toLowerCase())
+        // Filters.locations.map(function (item,i){
+        //     console.log(item.toLowerCase())
+        // })
+        Filters.locations.map(function (item,i) {
+            shops=data.filter(shop=>{
+                if(shop.local.toLowerCase().includes(item.toLowerCase())){
+                    console.log(shop)
+                    return shop;
+                }
+                else return null;
+            })
+        });
         return (
             <div>
                 <List
@@ -116,62 +128,43 @@ export default function Shops() {
         );
     };
     const handleFilters = (filters, category) => {
-        const newFilters = { ...Filters }
+        const newFilters = {...Filters}
         newFilters[category] = filters
-        console.log(newFilters)
+        // console.log(newFilters)
         setFilters(newFilters)
     }
     return (
         <Layout style={{margin: "0 0px"}}>
             <h1 className='shops'>Let's try all location</h1>
-                <div style={{ width: '80%', margin: '0rem auto' }}>
-                    <Row gutter={[16, 16]}>
-                        <Col lg={12} xs={24} >
-                            <CheckBox
-                                list={locations}
-                                handleFilters={filters => handleFilters(filters, "locations")}
-                            />
-                        </Col>
-                        <Col lg={12} xs={24}>
-                            <Search
-                                placeholder="input search text"
-                                enterButton="Search"
-                                size="large"
-                                suffix={suffix}
-                                onSearch={onSearch}
-                            ></Search>
-                        </Col>
-                    </Row>
-                    {data.length === 0 ?
-                        <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
-                            <h2>No post yet...</h2>
-                        </div> :
-                        <div>
-                            <Row gutter={[16, 16]}>
-                                {renderShops(data)}
-                            </Row>
-                        </div>
-                    }
-                </div>
+            <div style={{width: '80%', margin: '0rem auto'}}>
+                <Row gutter={[16, 16]}>
+                    <Col lg={12} xs={24}>
+                        <Checkbox
+                            list={locations}
+                            handleFilters={filters => handleFilters(filters, "locations")}
+                        />
+                    </Col>
+                    <Col lg={12} xs={24}>
+                        <Search
+                            placeholder="input search text"
+                            enterButton="Search"
+                            size="large"
+                            suffix={suffix}
+                            onSearch={onSearch}
+                        ></Search>
+                    </Col>
+                </Row>
+                {data.length === 0 ?
+                    <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center'}}>
+                        <h2>No post yet...</h2>
+                    </div> :
+                    <div>
+                        <Row gutter={[16, 16]}>
+                            {renderShops(data)}
+                        </Row>
+                    </div>
+                }
+            </div>
         </Layout>
-        // <Layout style={{margin: "0 0px"}}>
-        //
-        //     <Content
-        //         class="site-layout-background"
-        //         style={{padding: 24, minHeight: 360}}
-        //     >
-        //         <div style={{display: "flex", marginBottom: "20px"}}>
-        //             <Search
-        //                 placeholder="input search text"
-        //                 enterButton="Search"
-        //                 size="large"
-        //                 suffix={suffix}
-        //                 onSearch={onSearch}
-        //                 style={{width: "40%"}}
-        //             ></Search>
-        //         </div>
-        //         <div>{renderShops(data)}</div>
-        //     </Content>
-        // </Layout>
     );
 }

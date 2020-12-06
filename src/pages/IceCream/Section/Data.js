@@ -1,19 +1,60 @@
-const locations = [
+const taste = [
     {
         "id": 1,
-        "name": "Hai Bà Trưng"
+        "name": "Orange"
     },
     {
         "id": 2,
-        "name": "Đống Đa"
+        "name": "Chocolate"
     },
     {
         "id": 3,
-        "name": "Hoàn Kiếm"
+        "name": "Vani"
+    },
+    {
+        "id": 4,
+        "name": "Strawberry"
+    },
+    {
+        "id": 5,
+        "name": "Mango"
+    },
+    {
+        "id": 6,
+        "name": "Banana"
+    }
+]
+
+
+const color = [
+    {
+        "id": 1,
+        "name": "Yellow"
+    },
+    {
+        "id": 2,
+        "name": "Other"
+    },
+    {
+        "id": 3,
+        "name": "Red"
+    },
+    {
+        "id": 4,
+        "name": "White"
+    },
+    {
+        "id": 5,
+        "name": "Brown"
+    },
+    {
+        "id": 6,
+        "name": "Blue"
     }
 ]
 
 
 export {
-    locations
+    taste,
+    color
 }
