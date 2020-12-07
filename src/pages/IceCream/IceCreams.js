@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import "../../index.css";
 import {Layout, Card, Input, List, Pagination, Row, Col} from "antd";
-import {SearchOutlined,} from "@ant-design/icons";
+import {EnvironmentTwoTone, PhoneFilled, SearchOutlined, HeartTwoTone, CheckCircleTwoTone} from "@ant-design/icons";
 import Checkbox from "../IceCream/Section/Checkbox";
 import Checkbox2 from "./Section/Checkbox2";
 import {taste, color} from "./Section/Data";
@@ -42,6 +42,15 @@ export default function Products() {
         setMaxValue(value * itemNumberOnePage);
     };
 
+    function itemRender(current, type, originalElement) {
+        if (type === 'prev') {
+            return <a>Previous</a>;
+        }
+        if (type === 'next') {
+            return <a>Next</a>;
+        }
+        return originalElement;
+    }
     const renderProducts = (data) => {
         let products = [];
         if (searchValue !== "") {
@@ -68,6 +77,34 @@ export default function Products() {
             })
         });
         return (
+            // <div>
+            // <Row gutter={[16, 16]}>
+            //     {products.map(item=>
+            //         <Col lg={6} md={8} xs={24}>
+            //             <Card
+            //                 hoverable={true}
+            //                 cover={
+            //                     <a href={`/ice-cream/${item.id}`}>
+            //                         <img
+            //                             style={{width: "100%", height: "250px"}}
+            //                             alt="example"
+            //                             src={item.image}
+            //                         />
+            //                     </a>
+            //                 }
+            //             >
+            //                 <Meta
+            //                     title={item.color}
+            //                     description={`$${item.taste}`}
+            //                 />
+            //             </Card>
+            //         </Col>
+            //     )}
+            //
+            // </Row>
+            //     {/*<Pagination total={products.length} defaultPageSize={9} onChange={handleChange}/>*/}
+            //
+            // </div>
             <div>
                 <List
                     grid={{gutter: 3, column: 3}}
@@ -75,11 +112,17 @@ export default function Products() {
                     renderItem={(product) => (
                         <List.Item>
                             <Card
-                                style={{width: 350}}
+                                hoverable={true}
+                                title={
+                                    <div>
+                                        {product.name}
+                                    </div>
+                                }
+                                style={{width: 250}}
                                 cover={
                                     <a href={`/ice-cream/${product.id}`}>
                                         <img
-                                            style={{height: "250px"}}
+                                            style={{width: "100%",height: "250px"}}
                                             alt="example"
                                             src={product.image}
                                         />
@@ -90,12 +133,20 @@ export default function Products() {
                                     description={
                                         <div>
                                             <div>
-                        <span
-                            twoToneColor="#eb2f96"
-                            key="name"
-                            style={{marginRight: "10px"}}
-                        />
-                                                {product.name}
+                                                <HeartTwoTone
+                                                    twoToneColor="#eb2f96"
+                                                    key="telephone"
+                                                    style={{marginRight: "10px"}}
+                                                />
+                                                {product.taste}
+                                            </div>
+                                            <div>
+                                                <CheckCircleTwoTone
+                                                    twoToneColor="#52c41a"
+                                                    key="location"
+                                                    style={{marginRight: "10px"}}
+                                                />
+                                                {product.color}
                                             </div>
                                         </div>
                                     }
@@ -104,7 +155,7 @@ export default function Products() {
                         </List.Item>
                     )}
                 />
-                <Pagination total={18} defaultPageSize={9} onChange={handleChange}/>
+                <Pagination total={products.length} defaultPageSize={9} onChange={handleChange}/>
             </div>
         );
     };
@@ -159,9 +210,7 @@ export default function Products() {
                         <h2>No post yet...</h2>
                     </div> :
                     <div>
-                        <Row gutter={[16, 16]}>
-                            {renderProducts(data)}
-                        </Row>
+                        {renderProducts(data)}
                     </div>
                 }
             </div>
