@@ -3,7 +3,21 @@ import React, {useEffect, useState} from 'react';
 import {Card, Row, Col, List} from 'antd';
 import {Button, Descriptions} from 'antd';
 import {useHistory} from "react-router-dom";
-
+import ImageGallery from 'react-image-gallery';
+const images = [
+    {
+        original: 'https://picsum.photos/id/1018/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    },
+    {
+        original: 'https://picsum.photos/id/1015/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+];
 const {Meta} = Card;
 
 function DetailProduct(props) {
@@ -30,11 +44,12 @@ function DetailProduct(props) {
             <br/>
             <Row gutter={[16, 16]}>
                 <Col lg={12} xs={24}>
-                    <img
-                        style={{height: "600px"}}
-                        // alt="example"
-                        src={Product.image}
-                    />
+                    {/*<img*/}
+                    {/*    style={{height: "600px"}}*/}
+                    {/*    // alt="example"*/}
+                    {/*    src={Product.image}*/}
+                    {/*/>*/}
+                    <ImageGallery items={images} />
                 </Col>
                 <Col lg={12} xs={24}>
                     <div>
