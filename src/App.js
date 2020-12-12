@@ -12,7 +12,7 @@ import IceCreams from './pages/IceCream/IceCreams.js';
 import { Layout, Menu, Typography, Carousel } from 'antd';
 import { ShopOutlined, SketchOutlined,MailOutlined} from '@ant-design/icons';
 import Feedback from "./pages/Feedback";
-import DetailProduct from "./pages/DetailProduct";
+import DetailProduct from "./pages/DetailProduct/DetailProduct";
 import Navbar from "./pages/Navbar/Navbar";
 import Home from "./pages/Home";
 import Footer from "./pages/Footer/Footer";

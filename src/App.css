@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
+@import "~react-image-gallery/styles/css/image-gallery.css";
+.image-gallery {
+  width: 500px;
+}
 * {
   margin: 0;
   padding: 0;
