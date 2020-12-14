@@ -119,7 +119,7 @@ textarea:focus {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: #445565;
+  color: royalblue;
   font-size: 100px;
   width: 100%;
 }
@@ -129,7 +129,7 @@ textarea:focus {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: #242424;
+  color: white;
   font-size: 100px;
   width: 100%;
 }

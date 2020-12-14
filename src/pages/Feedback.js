@@ -59,7 +59,7 @@ export default class Feedback extends React.Component {
     console.log(this.state);
     axios({
       method: "POST", 
-      url:"http://itss-api.herokuapp.com/send",
+      url:"http://localhost:5000/send",
       data:  this.state
     }).then((response)=>{
       if (response.data.status === 'success') {

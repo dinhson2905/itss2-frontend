@@ -1,9 +1,10 @@
 import Axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Card, Row, Col, List} from 'antd';
+import {Card, Row, Col, List, Comment} from 'antd';
 import {Button, Descriptions} from 'antd';
 import {useHistory} from "react-router-dom";
 import ProductImage from './Section/ProductImage';
+import Comments from './Section/Comments';
 
 const {Meta} = Card;
 
@@ -11,6 +12,8 @@ function DetailProduct(props) {
     let history = useHistory();
     const id = props.match.params.id
     const [Product, setProduct] = useState([])
+    const [CommentList, setCommentList] = useState([])
+
     useEffect(() => {
         Axios.get(`http://localhost:5000/products/${id}`)
             .then(response => {
@@ -19,7 +22,21 @@ function DetailProduct(props) {
             .catch((err) => {
                 console.log(err);
             })
+
+        Axios.post('http://localhost:5000/comment/getComment', {id})
+            .then(response => {
+                console.log(response)
+                if (response.data.status === 200) {
+                    console.log(response.data.data)
+                    setCommentList(response.data.data)
+                } else {
+                    alert("fail to submit")
+                }
+            })
     }, [])
+    const updateComment = (newComment) => {
+        setCommentList(CommentList.concat(newComment))
+    }
     var sameType = Product.sameType;
     console.log(sameType)
     return (
@@ -36,7 +53,8 @@ function DetailProduct(props) {
                     {/*    // alt="example"*/}
                     {/*    src={Product.image}*/}
                     {/*/>*/}
-                    <ProductImage detail={Product} />
+                    <ProductImage detail={Product}/>
+
                 </Col>
                 <Col lg={12} xs={24}>
                     <div>
@@ -54,21 +72,21 @@ function DetailProduct(props) {
                                             <div key={index}>
                                                 <List.Item>
                                                     <Card
-                                                                        hoverable={true}
-                                                                        cover={
-                                                                            <a href={`/ice-cream/${el.id}`}>
-                                                                                <img
-                                                                                    style={{height: "100px"}}
-                                                                                    alt="example"
-                                                                                    src={el.image}
-                                                                                />
-                                                                            </a>
-                                                                        }
-                                                                    >
-                                                                        <Meta
-                                                                            title={el.name}
-                                                                        />
-                                                                    </Card>
+                                                        hoverable={true}
+                                                        cover={
+                                                            <a href={`/ice-cream/${el.id}`}>
+                                                                <img
+                                                                    style={{height: "100px"}}
+                                                                    alt="example"
+                                                                    src={el.image}
+                                                                />
+                                                            </a>
+                                                        }
+                                                    >
+                                                        <Meta
+                                                            title={el.name}
+                                                        />
+                                                    </Card>
                                                     {/*<Card*/}
                                                     {/*    style={{width: 100}}*/}
                                                     {/*    cover={*/}
@@ -111,7 +129,10 @@ function DetailProduct(props) {
                             </Button>
                         </div>
                     </div>
+
+
                 </Col>
+                <Comments CommentLists={CommentList} postId={Product.id} refreshFunction={updateComment}/>
             </Row>
         </div>
     )
