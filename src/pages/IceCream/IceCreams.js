@@ -6,6 +6,7 @@ import {EnvironmentTwoTone, PhoneFilled, SearchOutlined, HeartTwoTone, CheckCirc
 import Checkbox from "../IceCream/Section/Checkbox";
 import Checkbox2 from "./Section/Checkbox2";
 import {taste, color} from "./Section/Data";
+import ImageSlider from "../utils/ImageSlider";
 
 const {Content} = Layout;
 const {Meta} = Card;
@@ -18,7 +19,7 @@ export default function Products() {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(itemNumberOnePage);
     const [searchValue, setSearchValue] = useState("");
-    const api = "https://itss-api.herokuapp.com/products";
+    const api = "http://localhost:5000/products";
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(api);
@@ -121,11 +122,7 @@ export default function Products() {
                                 style={{width: 250}}
                                 cover={
                                     <a href={`/ice-cream/${product.id}`}>
-                                        <img
-                                            style={{width: "100%",height: "250px"}}
-                                            alt="example"
-                                            src={product.image}
-                                        />
+                                        <ImageSlider images={product.image} />
                                     </a>
                                 }
                             >
