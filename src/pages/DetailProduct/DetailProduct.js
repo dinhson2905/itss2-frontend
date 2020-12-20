@@ -59,9 +59,9 @@ function DetailProduct(props) {
                 <Col lg={12} xs={24}>
                     <div>
                         <Descriptions title="Product Info">
-                            <Descriptions.Item label="Name"> {Product.name}</Descriptions.Item>
+                            <Descriptions.Item label="Price"> {`$${Product.price}`}</Descriptions.Item>
                             <Descriptions.Item label="Taste">{Product.taste}</Descriptions.Item>
-                            <Descriptions.Item label="Color"> {Product.color}</Descriptions.Item>
+                            <Descriptions.Item label="Pencil Color"> {Product.color}</Descriptions.Item>
 
                         </Descriptions>
                         <Descriptions title="Same Type Taste">
