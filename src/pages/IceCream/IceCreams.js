@@ -25,7 +25,7 @@ export default function Products() {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(itemNumberOnePage);
     const [searchValue, setSearchValue] = useState("");
-    const api = "http://localhost:5000/products";
+    const api = "https://itss-api.herokuapp.com/products";
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(api);

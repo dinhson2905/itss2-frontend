@@ -20,7 +20,7 @@ function Comments(props) {
         }
 
         // console.log(variables);
-        axios.post('http://localhost:5000/comment/saveComment', variables)
+        axios.post('https://itss-api.herokuapp.com/comment/saveComment', variables)
             .then(response => {
                 // console.log(response)
                 if (response.data.status === 200) {

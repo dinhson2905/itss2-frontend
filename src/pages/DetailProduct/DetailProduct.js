@@ -15,7 +15,7 @@ function DetailProduct(props) {
     const [CommentList, setCommentList] = useState([])
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/products/${id}`)
+        Axios.get(`https://itss-api.herokuapp.com/products/${id}`)
             .then(response => {
                 setProduct(response.data)
             })
@@ -23,7 +23,7 @@ function DetailProduct(props) {
                 console.log(err);
             })
 
-        Axios.post('http://localhost:5000/comment/getComment', {id})
+        Axios.post('https://itss-api.herokuapp.com/comment/getComment', {id})
             .then(response => {
                 console.log(response)
                 if (response.data.status === 200) {
