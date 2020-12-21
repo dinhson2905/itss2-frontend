@@ -7,7 +7,7 @@
 /*}*/
 
 .hero-container {
-     background: url('https://www.marketingtochina.com/wp-content/uploads/2019/03/04-zs-ice-cream_66-ab-1280x640.jpg') center center/cover no-repeat;
+     background: url('https://sonnd-bucket.s3.us-east-2.amazonaws.com/itss2-images/pen/background.jpg?fbclid=IwAR0Wx_el5m56QKlzP07Hh9lAiAOLiHmTiEoUfeFLlsG8NNTyWzNJ61G1kOE') center center/cover no-repeat;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -19,14 +19,14 @@
 }
 
 .hero-container > h1 {
-    color: #223343;
+    color: #437777;
     font-size: 100px;
     margin-top: -100px;
 }
 
 .hero-container > p {
     margin-top: 8px;
-    color: #223343;
+    color: #5b3947;
     font-size: 32px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;

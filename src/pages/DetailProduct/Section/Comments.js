@@ -3,11 +3,13 @@ import {Form, Button, Input} from 'antd';
 import axios from "axios";
 import SingleComments from './SingleComments';
 import PerfectScrollbar from 'react-perfect-scrollbar'
+
 const {TextArea} = Input;
 
 function Comments(props) {
     const [Comment, setComment] = useState("");
     const [Name, setName] = useState("");
+    const [numberComment,setNumber]=useState(0);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +20,7 @@ function Comments(props) {
         }
 
         // console.log(variables);
-        axios.post('http://localhost:5000/comment/saveComment', variables)
+        axios.post('https://itss-api.herokuapp.com/comment/saveComment', variables)
             .then(response => {
                 // console.log(response)
                 if (response.data.status === 200) {
@@ -38,10 +40,13 @@ function Comments(props) {
             <hr/>
             {/*Comment Lists*/}
             {console.log(props.CommentLists)}
-            {props.CommentLists && props.CommentLists.map((comment, index) => (
-                <React.Fragment>
-                    <SingleComments comment={comment} postId={props.postId} refreshFunction={props.refreshFunction}/>
-                </React.Fragment>
+            {props.CommentLists && props.CommentLists.slice(0,5).map((comment, index) => (
+                <div>
+                    <React.Fragment>
+                        <SingleComments comment={comment} postId={props.postId} refreshFunction={props.refreshFunction}/>
+                    </React.Fragment>
+                </div>
+
             ))}
             {/*Root Comment Form*/}
             <form style={{display: 'flex'}} onSubmit={onSubmit}>

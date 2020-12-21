@@ -22,7 +22,7 @@ export default function Shops() {
     })
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios("http://localhost:5000/shops");
+            const result = await axios("https://itss-api.herokuapp.com/shops");
             const resultData = result.data;
             const dataArr = Object.keys(resultData).map((key) => resultData[key]);
             setData(dataArr);
