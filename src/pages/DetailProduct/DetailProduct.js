@@ -1,15 +1,15 @@
 import Axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Card, Row, Col, List, Comment} from 'antd';
+import {Card, Row, Col, List, Breadcrumb} from 'antd';
 import {Button, Descriptions} from 'antd';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import ProductImage from './Section/ProductImage';
 import Comments from './Section/Comments';
+import ProductInfo from "./Section/ProductInfo";
 
 const {Meta} = Card;
 
 function DetailProduct(props) {
-    let history = useHistory();
     const id = props.match.params.id
     const [Product, setProduct] = useState([])
     const [CommentList, setCommentList] = useState([])
@@ -40,38 +40,20 @@ function DetailProduct(props) {
     var sameType = Product.sameType;
     console.log(sameType)
     return (
-        <div className="postPage" style={{width: '100%', padding: '2rem 7rem'}}>
-
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <h1>{Product.name}</h1>
-            </div>
+        <div className="postPage" style={{width: '100%', padding: '2rem 15rem'}}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+                <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                <Breadcrumb.Item><Link to="/ice-creams">Products</Link></Breadcrumb.Item>
+                <Breadcrumb.Item>{Product.name}</Breadcrumb.Item>
+            </Breadcrumb>
             <br/>
-            <Row gutter={[0,0]}>
+            <Row gutter={[5,5]}>
                 <Col lg={12} xs={24}>
                     <ProductImage detail={Product}/>
                 </Col>
                 <Col lg={12} xs={24}>
-                    <div>
-                        <Descriptions title="Product Info">
-                            <Descriptions.Item label="Price">
-                                <p style={{fontSize: 30, color: "#e70b0b"}}>
-                                    {`$${Product.price}`}
-                                </p> </Descriptions.Item>
-                            <Descriptions.Item label="Taste">{Product.taste}</Descriptions.Item>
-                            <Descriptions.Item label="Pencil Color"> {Product.color}</Descriptions.Item>
-                        </Descriptions>
-
-                        <br/>
-                        <br/>
-                        <br/>
-                        <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <Button size="medium" shape="round" type="danger" onClick={() => history.goBack()}>
-                                Comeback
-                            </Button>
-                        </div>
-                    </div>
-
-
+                    <ProductInfo
+                        detail={Product} />
                 </Col>
             </Row>
             <Descriptions title="Same Type Taste">
@@ -97,7 +79,6 @@ function DetailProduct(props) {
                                                 title={el.name}
                                             />
                                         </Card>
-
                                     </List.Item>
                                 </div>
                             )
