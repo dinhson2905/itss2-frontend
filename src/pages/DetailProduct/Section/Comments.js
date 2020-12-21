@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Form, Button, Input} from 'antd';
 import axios from "axios";
 import SingleComments from './SingleComments';
-
+import PerfectScrollbar from 'react-perfect-scrollbar'
 const {TextArea} = Input;
 
 function Comments(props) {
@@ -34,7 +34,7 @@ function Comments(props) {
     return (
         <div>
             <br/>
-            <p>replies</p>
+            <p>Feedback from User</p>
             <hr/>
             {/*Comment Lists*/}
             {console.log(props.CommentLists)}
@@ -45,7 +45,7 @@ function Comments(props) {
             ))}
             {/*Root Comment Form*/}
             <form style={{display: 'flex'}} onSubmit={onSubmit}>
-                <input type="text" name="name" onChange={e => setName(e.target.value)} placeholder="Write your name">
+                <input onChange={e => setName(e.target.value)} placeholder="Write your name">
                 </input>
                 <br/>
                 <TextArea

@@ -2,11 +2,17 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import "../../index.css";
 import {Layout, Card, Input, List, Pagination, Row, Col} from "antd";
-import {EnvironmentTwoTone, PhoneFilled, SearchOutlined, HeartTwoTone, CheckCircleTwoTone} from "@ant-design/icons";
+import {
+    SearchOutlined,
+    HeartTwoTone,
+    CheckCircleTwoTone,
+    MoneyCollectOutlined
+} from "@ant-design/icons";
 import Checkbox from "../IceCream/Section/Checkbox";
 import Checkbox2 from "./Section/Checkbox2";
-import {taste, color} from "./Section/Data";
+import {taste, color, price} from "./Section/Data";
 import ImageSlider from "../utils/ImageSlider";
+import RadioBox from "./Section/Radiobox";
 
 const {Content} = Layout;
 const {Meta} = Card;
@@ -31,7 +37,8 @@ export default function Products() {
     }, []);
     const [Filters, setFilters] = useState({
         taste: [],
-        color: []
+        color: [],
+        price: []
     })
 
     const onSearch = (value) => {
@@ -42,15 +49,16 @@ export default function Products() {
         setMinValue((value - 1) * itemNumberOnePage);
         setMaxValue(value * itemNumberOnePage);
     };
-
-    function itemRender(current, type, originalElement) {
-        if (type === 'prev') {
-            return <a>Previous</a>;
+    const handlePrice = (value) => {
+        const data = price;
+        let array = [];
+        for (let key in data) {
+            if (data[key].id === parseInt(value,10)) {
+                array = data[key].array;
+            }
         }
-        if (type === 'next') {
-            return <a>Next</a>;
-        }
-        return originalElement;
+        console.log('array', array)
+        return array
     }
     const renderProducts = (data) => {
         let products = [];
@@ -64,7 +72,6 @@ export default function Products() {
         Filters.taste.map(function (item, i) {
             products = data.filter(product => {
                 if (product.taste.toLowerCase().includes(item.toLowerCase())) {
-                    console.log(product)
                     return product;
                 } else return null;
             })
@@ -72,11 +79,19 @@ export default function Products() {
         Filters.color.map(function (item, i) {
             products = data.filter(product => {
                 if (product.color.toLowerCase().includes(item.toLowerCase())) {
-                    console.log(product)
                     return product;
                 } else return null;
             })
         });
+        Filters.price.map(function (item, i) {
+            products = data.filter(product => {
+                if (product.price >= Filters.price[0] && product.price <= Filters.price[1]) {
+                    return product;
+                } else return null;
+            })
+
+        });
+
         return (
             // <div>
             // <Row gutter={[16, 16]}>
@@ -122,7 +137,7 @@ export default function Products() {
                                 style={{width: 250}}
                                 cover={
                                     <a href={`/ice-cream/${product.id}`}>
-                                        <ImageSlider images={product.image} />
+                                        <ImageSlider images={product.image}/>
                                     </a>
                                 }
                             >
@@ -145,6 +160,14 @@ export default function Products() {
                                                 />
                                                 {product.color}
                                             </div>
+                                            <div>
+                                                <MoneyCollectOutlined
+                                                    twoToneColor="#52c41a"
+                                                    key="location"
+                                                    style={{marginRight: "10px"}}
+                                                />
+                                                {`$${product.price}`}
+                                            </div>
                                         </div>
                                     }
                                 />
@@ -159,6 +182,11 @@ export default function Products() {
     const handleFilters = (filters, category) => {
         const newFilters = {...Filters}
         newFilters[category] = filters
+        if (category === "price") {
+            let priceValues = handlePrice(filters)
+            newFilters[category] = priceValues
+        }
+
         console.log(newFilters)
         setFilters(newFilters)
     }
@@ -183,12 +211,16 @@ export default function Products() {
                 </Row>
                 <Row gutter={[20, 20]}>
                     <Col lg={12} xs={24}>
+                        <RadioBox
+                            list={price}
+                            handleFilters={filters => handleFilters(filters, "price")}
+                        />
                     </Col>
                     <Col lg={12} xs={24}>
                         <div style={{
                             display: 'flex',
                             justifyContent: 'flex-end',
-                            margin: '1rem auto',
+                            margin: '0rem auto',
                             marginBottom: "20px"
                         }}>
                             <Search

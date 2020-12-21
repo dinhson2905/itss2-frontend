@@ -40,86 +40,27 @@ function DetailProduct(props) {
     var sameType = Product.sameType;
     console.log(sameType)
     return (
-        <div className="postPage" style={{width: '100%', padding: '3rem 4rem'}}>
+        <div className="postPage" style={{width: '100%', padding: '2rem 7rem'}}>
 
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <h1>{Product.name}</h1>
             </div>
             <br/>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[0,0]}>
                 <Col lg={12} xs={24}>
-                    {/*<img*/}
-                    {/*    style={{height: "600px"}}*/}
-                    {/*    // alt="example"*/}
-                    {/*    src={Product.image}*/}
-                    {/*/>*/}
                     <ProductImage detail={Product}/>
-
                 </Col>
                 <Col lg={12} xs={24}>
                     <div>
                         <Descriptions title="Product Info">
-                            <Descriptions.Item label="Name"> {Product.name}</Descriptions.Item>
+                            <Descriptions.Item label="Price">
+                                <p style={{fontSize: 30, color: "#e70b0b"}}>
+                                    {`$${Product.price}`}
+                                </p> </Descriptions.Item>
                             <Descriptions.Item label="Taste">{Product.taste}</Descriptions.Item>
-                            <Descriptions.Item label="Color"> {Product.color}</Descriptions.Item>
+                            <Descriptions.Item label="Pencil Color"> {Product.color}</Descriptions.Item>
+                        </Descriptions>
 
-                        </Descriptions>
-                        <Descriptions title="Same Type Taste">
-                            <ul>
-                                {
-                                    sameType && sameType.map(function (el, index) {
-                                        return (
-                                            <div key={index}>
-                                                <List.Item>
-                                                    <Card
-                                                        hoverable={true}
-                                                        cover={
-                                                            <a href={`/ice-cream/${el.id}`}>
-                                                                <img
-                                                                    style={{height: "100px"}}
-                                                                    alt="example"
-                                                                    src={el.image}
-                                                                />
-                                                            </a>
-                                                        }
-                                                    >
-                                                        <Meta
-                                                            title={el.name}
-                                                        />
-                                                    </Card>
-                                                    {/*<Card*/}
-                                                    {/*    style={{width: 100}}*/}
-                                                    {/*    cover={*/}
-                                                    {/*        <a href={`/ice-cream/${el.id}`}>*/}
-                                                    {/*            <img*/}
-                                                    {/*                style={{height: "250px"}}*/}
-                                                    {/*                alt="example"*/}
-                                                    {/*                src={el.image}*/}
-                                                    {/*            />*/}
-                                                    {/*        </a>*/}
-                                                    {/*    }*/}
-                                                    {/*>*/}
-                                                    {/*    <Meta*/}
-                                                    {/*        description={*/}
-                                                    {/*            <div>*/}
-                                                    {/*                <div>*/}
-                                                    {/*                    <span*/}
-                                                    {/*                        twoToneColor="#eb2f96"*/}
-                                                    {/*                        key="name"*/}
-                                                    {/*                        style={{marginRight: "10px"}}*/}
-                                                    {/*                    />*/}
-                                                    {/*                    {el.name}*/}
-                                                    {/*                </div>*/}
-                                                    {/*            </div>*/}
-                                                    {/*        }*/}
-                                                    {/*    />*/}
-                                                    {/*</Card>*/}
-                                                </List.Item>
-                                            </div>
-                                        )
-                                    })}
-                            </ul>
-                        </Descriptions>
                         <br/>
                         <br/>
                         <br/>
@@ -132,8 +73,40 @@ function DetailProduct(props) {
 
 
                 </Col>
-                <Comments CommentLists={CommentList} postId={Product.id} refreshFunction={updateComment}/>
             </Row>
+            <Descriptions title="Same Type Taste">
+                <ul>
+                    {
+                        sameType && sameType.map(function (el, index) {
+                            return (
+                                <div key={index}>
+                                    <List.Item>
+                                        <Card
+                                            hoverable={true}
+                                            cover={
+                                                <a href={`/ice-cream/${el.id}`}>
+                                                    <img
+                                                        style={{height: "200px"}}
+                                                        alt="example"
+                                                        src={el.image}
+                                                    />
+                                                </a>
+                                            }
+                                        >
+                                            <Meta
+                                                title={el.name}
+                                            />
+                                        </Card>
+
+                                    </List.Item>
+                                </div>
+                            )
+                        })}
+                </ul>
+            </Descriptions>
+            <div style={{display: 'flex', justifyContent: 'flex-start',padding: '0rem 2rem'}}>
+                <Comments CommentLists={CommentList} postId={Product.id} refreshFunction={updateComment}/>
+            </div>
         </div>
     )
 }

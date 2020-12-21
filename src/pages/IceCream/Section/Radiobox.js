@@ -3,13 +3,13 @@ import { Collapse, Radio } from 'antd';
 const { Panel } = Collapse;
 
 
-function RadioBox(props) {
+function Radiobox(props) {
 
     const [Value, setValue] = useState('0')
 
     const renderRadioBox = () => (
         props.list &&  props.list.map((value) => (
-            <Radio key={value.name} value={`${value.name}`}>{value.name}</Radio>
+            <Radio key={value.id} value={`${value.id}`}>{value.name}</Radio>
         ))
     )
 
@@ -21,7 +21,7 @@ function RadioBox(props) {
     return (
         <div>
             <Collapse defaultActiveKey={['0']}>
-                <Panel header="Location" key="1">
+                <Panel header="Ice Cream Price" key="1">
                     <Radio.Group onChange={handleChange} value={Value}>
 
                         {renderRadioBox()}
@@ -33,4 +33,4 @@ function RadioBox(props) {
     )
 }
 
-export default RadioBox
+export default Radiobox
