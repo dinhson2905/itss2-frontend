@@ -4,18 +4,23 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.0.0",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.8.0",
     "axios": "^0.21.0",
+    "node-sass": "4.14.1",
     "react": "^17.0.1",
     "react-awesome-slider": "^4.1.0",
     "react-dom": "^17.0.1",
     "react-image-gallery": "^1.0.8",
+    "react-material-ui-carousel": "^2.1.1",
     "react-perfect-scrollbar": "^1.5.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-search-autocomplete": "^1.0.6",
     "reactjs-popup": "^2.0.4",
     "web-vitals": "^0.2.4"
   },
@@ -42,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.11.2"
   }
 }

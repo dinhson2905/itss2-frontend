@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {Layout, Card, Input, List, Pagination, Row, Col} from "antd";
+import {Layout, Card, Input, List, Pagination, Row, Col, Breadcrumb} from "antd";
 import {PhoneFilled, EnvironmentTwoTone, SearchOutlined} from "@ant-design/icons";
 import Checkbox from './Section/Checkbox';
-// import RadioBox from "./Section/Radiobox";
 import {locations} from './Section/Data';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import {Link} from "react-router-dom";
 
-const {Content} = Layout;
 const {Meta} = Card;
-const {Search} = Input;
-const suffix = <SearchOutlined style={{fontSize: 16, color: "#1890ff"}}/>;
 
 export default function Shops() {
     const itemNumberOnePage = 9;
@@ -31,7 +30,7 @@ export default function Shops() {
     }, []);
 
     const onSearch = (value) => {
-        setSearchValue(value)
+        setSearchValue(value.target.defaultValue)
     }
 
     const handleChange = (value) => {
@@ -48,10 +47,6 @@ export default function Shops() {
                 else return null;
             });
         } else shops = data;
-        // console.log(Filters.locations.toLowerCase())
-        // Filters.locations.map(function (item,i){
-        //     console.log(item.toLowerCase())
-        // })
         Filters.locations.map(function (item,i) {
             shops=data.filter(shop=>{
                 if(shop.local.toLowerCase().includes(item.toLowerCase())){
@@ -135,9 +130,12 @@ export default function Shops() {
         setFilters(newFilters)
     }
     return (
-        <Layout style={{margin: "0 0px"}}>
-            <h1 className='shops'>Let's try all location</h1>
+
             <div style={{width: '80%', margin: '0rem auto'}}>
+                <Breadcrumb style={{margin: "16px 0"}}>
+                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/shops">Shops</Link></Breadcrumb.Item>
+                </Breadcrumb>
                 <Row gutter={[16, 16]}>
                     <Col lg={12} xs={24}>
                         <Checkbox
@@ -146,13 +144,25 @@ export default function Shops() {
                         />
                     </Col>
                     <Col lg={12} xs={24}>
-                        <Search
-                            placeholder="input search text"
-                            enterButton="Search"
-                            size="large"
-                            suffix={suffix}
-                            onSearch={onSearch}
-                        ></Search>
+                        <div style={{width: 400}}>
+                            <Autocomplete
+                                freeSolo
+                                id="free-solo-2-demo"
+                                disableClearable
+                                selectOnFocus
+                                onSelect={onSearch}
+                                options={data.map((option) => option.name)}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Name of Shop"
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{...params.InputProps, type: 'search'}}
+                                    />
+                                )}
+                            />
+                        </div>
                     </Col>
                 </Row>
                 {data.length === 0 ?
@@ -166,6 +176,5 @@ export default function Shops() {
                     </div>
                 }
             </div>
-        </Layout>
     );
 }

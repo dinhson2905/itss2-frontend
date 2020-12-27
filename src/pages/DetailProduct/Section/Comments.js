@@ -1,67 +1,120 @@
-import React, {useEffect, useState} from 'react'
-import {Form, Button, Input} from 'antd';
+import React, {useCallback, useEffect, useState} from 'react'
+import {Form, Button, Input,Modal} from 'antd';
 import axios from "axios";
 import SingleComments from './SingleComments';
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const {TextArea} = Input;
 
 function Comments(props) {
-    const [Comment, setComment] = useState("");
-    const [Name, setName] = useState("");
-    const [numberComment,setNumber]=useState(0);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const [visible, setVisible] = useState(false);
+
+    const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+        const [form] = Form.useForm();
+        return (
+            <Modal
+                visible={visible}
+                title="User form feedback"
+                okText="Create"
+                cancelText="Cancel"
+                onCancel={onCancel}
+                onOk={() => {
+                    form
+                        .validateFields()
+                        .then((values) => {
+                            form.resetFields();
+                            onCreate(values);
+                        })
+                        .catch((info) => {
+                            console.log('Validate Failed:', info);
+                        });
+                }}
+            >
+                <Form
+                    form={form}
+                    layout="vertical"
+                    name="form_in_modal"
+                    initialValues={{
+                        modifier: 'public',
+                    }}
+                >
+                    <Form.Item
+                        name="name"
+                        label="Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your name!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item name="content" label="Content">
+                        <Input type="textarea" />
+                    </Form.Item>
+                </Form>
+            </Modal>
+        );
+    };
+
+
+    const onCreate = (e) => {
         const variables = {
-            name: Name,
-            content: Comment,
+            name: e.name,
+            content: e.content,
             postId: props.postId
         }
+        console.log('Received values of form: ', variables);
 
-        // console.log(variables);
         axios.post('https://itss-api.herokuapp.com/comment/saveComment', variables)
             .then(response => {
                 // console.log(response)
                 if (response.data.status === 200) {
-                    setName("")
-                    setComment("")
                     // console.log(response.data.data)
                     props.refreshFunction(response.data.data)
+                    setVisible(false);
                 } else {
                     alert("fail to submit")
                 }
+
             })
-    }
+    };
     return (
-        <div>
+        <div style={{width:'600px'}}>
             <br/>
-            <p>Feedback from User</p>
+            <p style={{fontSize: 20, color: "#0d0da5",fontWeight:'bold'}}>Feedback from User</p>
             <hr/>
             {/*Comment Lists*/}
             {console.log(props.CommentLists)}
-            {props.CommentLists && props.CommentLists.slice(0,5).map((comment, index) => (
-                <div>
+            {props.CommentLists && props.CommentLists.map((comment, index) => (
+                <div style={{margin:'0rem 2rem'}}>
                     <React.Fragment>
-                        <SingleComments comment={comment} postId={props.postId} refreshFunction={props.refreshFunction}/>
+                        <SingleComments comment={comment} postId={props.postId}
+                                        refreshFunction={props.refreshFunction}/>
                     </React.Fragment>
+
                 </div>
 
             ))}
-            {/*Root Comment Form*/}
-            <form style={{display: 'flex'}} onSubmit={onSubmit}>
-                <input onChange={e => setName(e.target.value)} placeholder="Write your name">
-                </input>
-                <br/>
-                <TextArea
-                    style={{width: '100%', borderRadius: '5px'}}
-                    onChange={e => setComment(e.target.value)}
-                    value={Comment}
-                    placeholder="write some comment"
-                />
-                <br/>
-                <Button style={{width: '20%', height: '52px'}} onClick={onSubmit}>Submit</Button>
-            </form>
+            <Button
+                type="primary"
+                onClick={() => {
+                    setVisible(true);
+                }}
+            >
+                User feedback
+            </Button>
+            <CollectionCreateForm
+                visible={visible}
+                onCreate={onCreate}
+                onCancel={() => {
+                    setVisible(false);
+                }}
+            />
         </div>
     )
 

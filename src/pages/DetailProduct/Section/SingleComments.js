@@ -1,8 +1,6 @@
 import React from 'react';
-import {Comment, Avatar, Tooltip ,Button, Input} from 'antd';
+import {Comment, Avatar, Tooltip } from 'antd';
 import moment from 'moment';
-
-import { UserOutlined } from '@ant-design/icons';
 
 function SingleComments(props) {
 
@@ -15,7 +13,9 @@ function SingleComments(props) {
                     </p>
                 }
                 avatar={
-                    <Avatar shape="square" size={64} icon={<UserOutlined />} />
+                    <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large" gap={2}>
+                        {props.comment.name}
+                    </Avatar>
                 }
                 content={
                     <p style={{fontSize: 20, color: "#161515"}}>

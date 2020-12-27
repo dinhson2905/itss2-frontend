@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import "../../index.css";
-import {Layout, Card, Input, List, Pagination, Row, Col} from "antd";
+import {Card, List, Pagination, Row, Col, Breadcrumb} from "antd";
 import {
-    SearchOutlined,
     HeartTwoTone,
     CheckCircleTwoTone,
     MoneyCollectOutlined
@@ -13,11 +12,11 @@ import Checkbox2 from "./Section/Checkbox2";
 import {taste, color, price} from "./Section/Data";
 import ImageSlider from "../utils/ImageSlider";
 import RadioBox from "./Section/Radiobox";
+import {Link} from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const {Content} = Layout;
 const {Meta} = Card;
-const {Search} = Input;
-const suffix = <SearchOutlined style={{fontSize: 16, color: "#1890ff"}}/>;
 
 export default function Products() {
     const itemNumberOnePage = 9;
@@ -42,7 +41,7 @@ export default function Products() {
     })
 
     const onSearch = (value) => {
-        setSearchValue(value)
+        setSearchValue(value.target.defaultValue)
     }
 
     const handleChange = (value) => {
@@ -53,7 +52,7 @@ export default function Products() {
         const data = price;
         let array = [];
         for (let key in data) {
-            if (data[key].id === parseInt(value,10)) {
+            if (data[key].id === parseInt(value, 10)) {
                 array = data[key].array;
             }
         }
@@ -191,58 +190,72 @@ export default function Products() {
         setFilters(newFilters)
     }
     return (
-        <Layout style={{margin: "0 0px"}}>
-            <h1 className='products'>My Products</h1>
-
-            <div style={{width: '70%', margin: '0rem auto'}}>
-                <Row gutter={[20, 20]}>
-                    <Col lg={12} xs={24}>
-                        <Checkbox
-                            list={taste}
-                            handleFilters={filters => handleFilters(filters, "taste")}
-                        />
-                    </Col>
-                    <Col lg={12} xs={24}>
-                        <Checkbox2
-                            list={color}
-                            handleFilters={filters => handleFilters(filters, "color")}
-                        />
-                    </Col>
-                </Row>
-                <Row gutter={[20, 20]}>
-                    <Col lg={12} xs={24}>
-                        <RadioBox
-                            list={price}
-                            handleFilters={filters => handleFilters(filters, "price")}
-                        />
-                    </Col>
-                    <Col lg={12} xs={24}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            margin: '0rem auto',
-                            marginBottom: "20px"
-                        }}>
-                            <Search
-                                placeholder="input search text"
-                                enterButton="Search"
-                                size="large"
-                                suffix={suffix}
-                                onSearch={onSearch}
-                            ></Search>
+        <div style={{width: '75%', margin: '0rem auto'}}>
+            <Breadcrumb style={{margin: "16px 0"}}>
+                <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                <Breadcrumb.Item><Link to="/ice-creams">Products</Link></Breadcrumb.Item>
+            </Breadcrumb>
+            <br/>
+            <Row gutter={[20, 20]}>
+                <Col lg={12} xs={24}>
+                    <Checkbox
+                        list={taste}
+                        handleFilters={filters => handleFilters(filters, "taste")}
+                    />
+                </Col>
+                <Col lg={12} xs={24}>
+                    <Checkbox2
+                        list={color}
+                        handleFilters={filters => handleFilters(filters, "color")}
+                    />
+                </Col>
+            </Row>
+            <Row gutter={[20, 20]}>
+                <Col lg={12} xs={24}>
+                    <RadioBox
+                        list={price}
+                        handleFilters={filters => handleFilters(filters, "price")}
+                    />
+                </Col>
+                <Col lg={12} xs={24}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '0rem auto',
+                        marginBottom: "20px",
+                        color: '#282c34'
+                    }}>
+                        <div style={{width: 400}}>
+                            <Autocomplete
+                                freeSolo
+                                id="free-solo-2-demo"
+                                disableClearable
+                                selectOnFocus
+                                onSelect={onSearch}
+                                options={data.map((option) => option.name)}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Name of Ice Cream"
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{...params.InputProps, type: 'search'}}
+                                    />
+                                )}
+                            />
                         </div>
-                    </Col>
-                </Row>
-
-                {data.length === 0 ?
-                    <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center'}}>
-                        <h2>No post yet...</h2>
-                    </div> :
-                    <div>
-                        {renderProducts(data)}
                     </div>
-                }
-            </div>
-        </Layout>
+                </Col>
+            </Row>
+
+            {data.length === 0 ?
+                <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center'}}>
+                    <h2>No post yet...</h2>
+                </div> :
+                <div>
+                    {renderProducts(data)}
+                </div>
+            }
+        </div>
     );
 }
